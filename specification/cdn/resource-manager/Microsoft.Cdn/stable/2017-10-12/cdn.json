@@ -2272,112 +2272,64 @@
         "name"
       ],
       "properties": {
-        "name": {
-          "description": "The name of the condition for the delivery rule.",
+        "matchVariable": {
+          "description": "Match Variable",
           "type": "string",
           "enum": [
-            "UrlPath",
-            "UrlFileExtension",
-            "UrlFileName",
-            "UrlQueryString",
-            "UrlWildcard",
             "RemoteAddr",
             "RequestMethod",
-            "RequestHeader",
-            "RequestBody",
+            "QueryString",
             "PostArgs",
-            "Cookie",
-            "Device"
-          ]
+            "RequestUri",
+            "RequestHeader",
+            "RequestBody"
+          ],
+          "x-ms-enum": {
+            "name": "MatchCondition",
+            "modelAsString": true
+          }
         },
-        "negated": {
-          "description": "Negate match condition or not.",
-          "type": "boolean"
-        }
-      }
-    },
-    "DeliveryRuleUrlPathCondition": {
-      "description": "Defines the URL path condition for the delivery rule.",
-      "x-ms-discriminator-value": "UrlPath",
-      "allOf": [
-        {
-          "$ref": "#/definitions/DeliveryRuleCondition"
-        }
-      ],
-      "required": [
-        "parameters"
-      ],
-      "properties": {
-        "parameters": {
-          "description": "Defines the parameters for the condition.",
-          "$ref": "#/definitions/UrlPathConditionParameters"
-        }
-      }
-    },
-    "UrlPathConditionParameters": {
-      "description": "Defines the parameters for the URL path condition.",
-      "required": [
-        "path",
-        "matchType",
-        "@odata.type"
-      ],
-      "properties": {
-        "@odata.type": {
-          "type": "string",
-          "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleUrlPathConditionParameters"
-          ]  
-        },
-        "path": {
-          "description": "A URL path for the condition of the delivery rule",
+        "selector": {
+          "description": "Name of selector in RequestHeader or RequestBody to be matched",
           "type": "string"
         },
-        "matchType": {
-          "description": "The match type for the condition of the delivery rule",
+        "operator": {
+          "description": "Describes operator to be matched",
           "type": "string",
           "enum": [
-            "Literal",
-            "Wildcard"
-          ]
-        }
-      }
-    },
-    "DeliveryRuleUrlFileExtensionCondition": {
-      "description": "Defines the URL file extension condition for the delivery rule.",
-      "x-ms-discriminator-value": "UrlFileExtension",
-      "allOf": [
-        {
-          "$ref": "#/definitions/DeliveryRuleCondition"
-        }
-      ],
-      "required": [
-        "parameters"
-      ],
-      "properties": {
-        "parameters": {
-          "description": "Defines the parameters for the condition.",
-          "$ref": "#/definitions/UrlFileExtensionConditionParameters"
-        }
-      }
-    },
-    "UrlFileExtensionConditionParameters": {
-      "description": "Defines the parameters for the URL file extension condition.",
-      "required": [
-        "extensions",
-        "@odata.type"
-      ],
-      "properties": {
-        "@odata.type": {
-          "type": "string",
-          "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters"
-          ]  
+            "Any",
+            "IPMatch",
+            "GeoMatch",
+            "Equal",
+            "Contains",
+            "LessThan",
+            "GreaterThan",
+            "LessThanOrEqual",
+            "GreaterThanOrEqual",
+            "BeginsWith",
+            "EndsWith"
+          ],
+          "x-ms-enum": {
+            "name": "operator",
+            "modelAsString": true
+          }
         },
-        "extensions": {
-          "description": "A list of extensions for the condition of the delivery rule.",
+        "negateCondition": {
+          "description": "Describes if this is negate condition or not",
+          "type": "boolean"
+        },
+        "matchValue": {
+          "description": "Match value",
           "type": "array",
           "items": {
             "type": "string"
+          }
+        },
+        "transforms": {
+          "description": "List of transforms",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/transform"
           }
         }
       }
@@ -2394,7 +2346,7 @@
           "type": "string",
           "enum": [
             "CacheExpiration",
-            "Cacheability",
+            "CacheOverride",
             "ModifyRequestHeader",
             "ModifyResponseHeader",
             "UrlRedirect"
@@ -2572,9 +2524,9 @@
             }
         }
       },
-    "DeliveryRuleCacheabilityAction": {
-      "description": "Defines the cacheability action for the delivery rule.",
-      "x-ms-discriminator-value": "Cacheability",
+    "DeliveryRuleCacheOverrideAction": {
+      "description": "Defines the cacheOverride action for the delivery rule.",
+      "x-ms-discriminator-value": "CacheOverride",
       "allOf": [
         {
           "$ref": "#/definitions/DeliveryRuleAction"
@@ -2586,25 +2538,25 @@
       "properties": {
         "parameters": {
           "description": "Defines the parameters for the action.",
-          "$ref": "#/definitions/CacheabilityActionParameters"
+          "$ref": "#/definitions/CacheOverrideActionParameters"
         }
       }
     },
-    "CacheabilityActionParameters": {
-      "description": "Defines the parameters for the cacheability action.",
+    "CacheOverrideActionParameters": {
+      "description": "Defines the parameters for the cacheOverride action.",
       "required": [
-        "cacheability",
+        "cacheOverride",
         "@odata.type"
       ],
       "properties": {
         "@odata.type": {
           "type": "string",
           "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleCacheabilityActionParameters"
+            "Microsoft.Azure.Cdn.Models.DeliveryRuleCacheOverrideActionParameters"
           ]  
         },
-        "cacheability": {
-          "description": "Cacheability for the request.",
+        "cacheOverride": {
+          "description": "CacheOverride for the request.",
           "type": "string",
           "enum": [
             "ForceCacheable",
