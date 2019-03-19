@@ -2331,7 +2331,31 @@
           "items": {
             "type": "string"
           }
+        },
+        "transforms": {
+          "description": "List of transforms",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/transform"
+          }
         }
+      }
+    },
+    "transform": {
+      "description": "Describes what transforms applied before matching",
+      "type": "string",
+      "enum": [
+        "Lowercase",
+        "Uppercase",
+        "Trim",
+        "UrlDecode",
+        "UrlEncode",
+        "RemoveNulls",
+        "HtmlEntityDecode"
+      ],
+      "x-ms-enum": {
+        "name": "transform",
+        "modelAsString": true
       }
     },
     "DeliveryRuleAction": {
@@ -2345,7 +2369,6 @@
           "description": "The name of the action for the delivery rule.",
           "type": "string",
           "enum": [
-            "CacheExpiration",
             "CacheOverride",
             "ModifyRequestHeader",
             "ModifyResponseHeader",
@@ -2386,7 +2409,7 @@
             "Microsoft.Azure.Cdn.Models.DeliveryRuleUrlRedirectActionParameters"
           ]  
         },
-        "path": {
+        "pathType": {
           "description": "How the path in the redirect URL is applied. You can choose from ​static path, addPrefix, addSuffix and preservePath",
           "type": "string",
           "enum": [
@@ -2408,7 +2431,7 @@
             "description": "Include if path is set to addPathPrefix",
             "type": "string"
         },
-        "hostname":{
+        "hostType":{
           "description": "The hostname that should be used in the redirect URL. You can choose from staticHost, adSubDomain or replaceSubDomain.",
           "type": "string",
           "enum": [
@@ -2427,6 +2450,15 @@
         "preserveFilename":{
           "description": "Whether or not the path also includes the filename and extension for the redirect. Static path only",
           "type": "string"
+        },
+        "protocol":{
+          "description": "http/https",
+          "type": "string",
+          "enum": [
+            "Http",
+            "Https",
+            "MatchRequest"
+          ]
         }
       }
     },
@@ -2525,47 +2557,6 @@
         }
       },
     "DeliveryRuleCacheOverrideAction": {
-      "description": "Defines the cacheOverride action for the delivery rule.",
-      "x-ms-discriminator-value": "CacheOverride",
-      "allOf": [
-        {
-          "$ref": "#/definitions/DeliveryRuleAction"
-        }
-      ],
-      "required":[
-        "parameters"
-      ],
-      "properties": {
-        "parameters": {
-          "description": "Defines the parameters for the action.",
-          "$ref": "#/definitions/CacheOverrideActionParameters"
-        }
-      }
-    },
-    "CacheOverrideActionParameters": {
-      "description": "Defines the parameters for the cacheOverride action.",
-      "required": [
-        "cacheOverride",
-        "@odata.type"
-      ],
-      "properties": {
-        "@odata.type": {
-          "type": "string",
-          "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleCacheOverrideActionParameters"
-          ]  
-        },
-        "cacheOverride": {
-          "description": "CacheOverride for the request.",
-          "type": "string",
-          "enum": [
-            "ForceCacheable",
-            "ForceUncacheable"
-          ]
-        }
-      }
-    },
-    "DeliveryRuleCacheExpirationAction": {
       "description": "Defines the cache expiration action for the delivery rule.",
       "x-ms-discriminator-value": "CacheExpiration",
       "allOf": [
@@ -2583,7 +2574,7 @@
         }
       }
     },
-    "CacheExpirationActionParameters": {
+    "CacheOverrideActionParameters": {
       "description": "Defines the parameters for the cache expiration action.",
       "required": [
         "cacheBehavior",
@@ -2598,11 +2589,12 @@
           ]  
         },
         "cacheBehavior": {
-          "description": "Caching behavior for the requests that include query strings.",
+          "description": "Caching behavior for the requests",
           "type": "string",
           "enum": [
+            "BypassCache",
             "Override",
-            "SetIfMissing"
+            "SetIfMissing"  
           ]
         },
         "cacheType": {
