@@ -2398,8 +2398,8 @@
     "UrlRedirectActionParameters": {
       "description": "Defines the parameters for the url redirect action.",
       "required": [
-        "path",
-        "hostname",
+        "pathType",
+        "hostType",
         "@odata.type"
       ],
       "properties": {
@@ -2459,6 +2459,10 @@
             "Https",
             "MatchRequest"
           ]
+        },
+        "preserveQueryString":{
+          "description": "Whether or not to preserve query strings.",
+          "type": "boolean"
         }
       }
     },
