@@ -2891,8 +2891,8 @@
         }
       }
     },
-    "RequestFilenameMatchConditionParameters": {
-      "description": "Defines the parameters for RequestFilename match conditions",
+    "UrlFilenameMatchConditionParameters": {
+      "description": "Defines the parameters for UrlFilename match conditions",
       "required": [
         "operator",
         "matchvalue",
@@ -2902,7 +2902,7 @@
         "@odata.type": {
           "type": "string",
           "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleRequestFilenameConditionParameters"
+            "Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFilenameConditionParameters"
           ]  
         },
         "operator": {
@@ -2937,8 +2937,8 @@
         }
       }
     },
-    "RequestFilenameExtensionMatchConditionParameters": {
-      "description": "Defines the parameters for RequestFilenameExtension match conditions",
+    "UrlFilenameExtensionMatchConditionParameters": {
+      "description": "Defines the parameters for UrlFilenameExtension match conditions",
       "required": [
         "operator",
         "matchvalue",
@@ -2948,7 +2948,7 @@
         "@odata.type": {
           "type": "string",
           "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleRequestFilenameExtensionConditionParameters"
+            "Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFilenameExtensionConditionParameters"
           ]  
         },
         "operator": {
@@ -3040,7 +3040,7 @@
         "@odata.type": {
           "type": "string",
           "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleRequestUrlWildcardConditionParameters"
+            "Microsoft.Azure.Cdn.Models.DeliveryRuleUrlWildcardConditionParameters"
           ]  
         },
         "operator": {
@@ -3247,7 +3247,7 @@
           "description": "The name of the action for the delivery rule.",
           "type": "string",
           "enum": [
-            "CacheOverride",
+            "CacheExpiration",
             "ModifyRequestHeader",
             "ModifyResponseHeader",
             "UrlRedirect"
@@ -3277,8 +3277,8 @@
       "description": "Defines the parameters for the url redirect action.",
       "required": [
         "statusCode",
-        "pathType",
         "hostType",
+        "pathType",
         "@odata.type"
       ],
       "properties": {
@@ -3444,7 +3444,7 @@
             }
         }
       },
-    "DeliveryRuleCacheOverrideAction": {
+    "DeliveryRuleCacheExpirationAction": {
       "description": "Defines the cache expiration action for the delivery rule.",
       "x-ms-discriminator-value": "CacheExpiration",
       "allOf": [
@@ -3462,7 +3462,7 @@
         }
       }
     },
-    "CacheOverrideActionParameters": {
+    "CacheExpirationActionParameters": {
       "description": "Defines the parameters for the cache expiration action.",
       "required": [
         "cacheBehavior",

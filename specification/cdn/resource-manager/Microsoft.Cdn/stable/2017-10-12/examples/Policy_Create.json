@@ -1,0 +1,81 @@
+{
+    "parameters": {
+        "api-version": "2019-3-25",
+        "subscriptionId": "subid",
+        "resourceGroupName": "RG",
+        "profileName": "profile1",
+        "endpointName": "endpoint1",
+        "endpoint": {
+        "location": "WestCentralUs",
+        "properties": {
+            "deliveryPolicy": {
+                "description": "Example rules",
+                "rules": [
+                {
+                    "order": "1",
+                    "actions": [
+                    {
+                        "name": "CacheExpiration",
+                        "parameters": {
+                            "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleCacheExpirationActionParameters",
+                            "cacheBehavior":"BypassCache",
+                            "cacheDuration":null,
+                            "cacheType":"All"
+                        }
+
+                    }
+                    ],
+                    "conditions": [
+                    {
+                        "name": "UrlFileExtension",
+                        "parameters":{
+                            "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
+                            "operator":"Equal",
+                            "matchValue":".txt"}
+                    }
+                    ]
+                },
+                {
+                    "order": "2",
+                    "actions": [
+                    {
+                        "name": "UrlRedirect",
+                        "parameters": {
+                            "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlRedirectActionParameters",
+                            "statusCode":"301",
+                            "hostType":"StaticHost",
+                            "staticHost":"foo",
+                            "pathType":"StaticPath",
+                            "staticPath":"/compressed",
+                            "preserveQueryString":true
+                        }
+
+                    }
+                    ],
+                    "conditions": [
+                    {
+                        "name": "RequestHeader",
+                        "parameters":{
+                            "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleRequestHeaderConditionParameters",
+                            "operator":"Contains",
+                            "selector":"Accept-Encoding",
+                            "matchValue":"gzip"}
+                    }
+                    ]
+                }
+                ]
+            },
+            "origins": [
+                {
+                "name": "string",
+                "properties": {
+                    "hostName": "string",
+                    "httpPort": "integer",
+                    "httpsPort": "integer"
+                }
+                }
+            ]
+        },
+        "resources": []
+  }
+}
