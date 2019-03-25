@@ -2845,8 +2845,8 @@
         }
       }
     },
-    "RequestPathMatchConditionParameters": {
-      "description": "Defines the parameters for RequestPath match conditions",
+    "UrlPathMatchConditionParameters": {
+      "description": "Defines the parameters for UrlPath match conditions",
       "required": [
         "operator",
         "matchvalue",
@@ -2856,7 +2856,7 @@
         "@odata.type": {
           "type": "string",
           "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleRequestPathConditionParameters"
+            "Microsoft.Azure.Cdn.Models.DeliveryRuleUrlPathConditionParameters"
           ]  
         },
         "operator": {
