@@ -2249,18 +2249,18 @@
           "description": "The order in which the rules are applied for the endpoint. Possible values {0,1,2,3,………}. A rule with a lesser order will be applied before a rule with a greater order. Rule with order 0 is a special rule. It does not require any condition and actions listed in it will always be applied.",
           "type": "integer"
         },
-        "actions": {
-          "description": "A list of actions that are executed when all the conditions of a rule are satisfied.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/DeliveryRuleAction"
-          }
-        },
         "conditions": {
           "description": "A list of conditions that must be matched for the actions to be executed",
           "type": "array",
           "items": {
             "$ref": "#/definitions/DeliveryRuleCondition"
+          }
+        },
+        "actions": {
+          "description": "A list of actions that are executed when all the conditions of a rule are satisfied.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DeliveryRuleAction"
           }
         }
       }
@@ -3276,7 +3276,7 @@
     "UrlRedirectActionParameters": {
       "description": "Defines the parameters for the url redirect action.",
       "required": [
-        "statusCode",
+        "redirectType",
         "hostType",
         "pathType",
         "@odata.type"
@@ -3288,9 +3288,15 @@
             "Microsoft.Azure.Cdn.Models.DeliveryRuleUrlRedirectActionParameters"
           ]  
         },
-        "statusCode": {
-          "description": "status code to return",
-          "type": "integer"
+        "redirectType": {
+          "description": "The redirect type the rule will use when redirecting traffic.",
+          "type": "string",
+          "enum": [
+            "Moved",
+            "Found",
+            "TemporaryRedirect",
+            "PermanentRedirect"
+          ]
         },
         "pathType": {
           "description": "How the path in the redirect URL is applied. You can choose from ​static path, addPrefix, addSuffix and preservePath",
@@ -3299,11 +3305,10 @@
             "StaticPath",
             "AddPathSuffix",
             "AddPathPrefix",
-            "PreservePath"
           ]
         },
         "staticPath": {
-            "description": "Include if path is set to staticPath.",
+            "description": "Include if path is set to staticPath.Leave empty to use use the incoming path as the destination path.",
             "type": "string"
         },
         "pathSuffix": {
@@ -3324,7 +3329,7 @@
           ]
         },
         "staticHostname":{
-          "description": "Include if hostname is set to StaticHostname.",
+          "description": "Include if hostname is set to StaticHostname. Leave empty to use the incoming host as destination host.",
           "type": "string"
         },
         "subDomain":{
@@ -3332,10 +3337,10 @@
           "type": "string"
         },
         "preserveFilename":{
-          "description": "Whether or not the path also includes the filename and extension for the redirect. Static path only",
+          "description": "Include if path is set to staticPath. Indicates whether the path also includes the filename and extension for the redirect. Defaults to false.",
           "type": "boolean"
         },
-        "protocol":{
+        "destinationProtocol":{
           "description": "Protocol to use for the redirect. The default value is MatchRequest",
           "type": "string",
           "enum": [
@@ -3345,8 +3350,16 @@
           ]
         },
         "preserveQueryString":{
-          "description": "Whether or not to preserve query strings.",
+          "description": "When enabled, retains the query string on the redirect request. Defaults to true.",
           "type": "boolean"
+        },
+        "customQueryString":{
+          "description": "The set of query strings to be placed in the redirect URL. Setting this value would replace any existing query string; leave empty to preserve the incoming query string. Query string must be in <key>=<value> format. ? and & will be added automatically so do not include them.",
+          "type": "string"
+        },
+        "customFragment": {
+          "type": "string",
+          "description": "Fragment to add to the redirect URL. Fragment is the part of the URL that comes after #. Do not include the #."
         }
       }
     },

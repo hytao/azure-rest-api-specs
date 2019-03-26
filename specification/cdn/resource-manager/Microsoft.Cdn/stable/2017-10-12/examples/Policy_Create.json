@@ -13,6 +13,15 @@
                 "rules": [
                 {
                     "order": "1",
+                    "conditions": [
+                    {
+                        "name": "UrlFileExtension",
+                        "parameters":{
+                            "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
+                            "operator":"Equal",
+                            "matchValue":".txt"}
+                    }
+                    ],
                     "actions": [
                     {
                         "name": "CacheExpiration",
@@ -23,15 +32,6 @@
                             "cacheType":"All"
                         }
 
-                    }
-                    ],
-                    "conditions": [
-                    {
-                        "name": "UrlFileExtension",
-                        "parameters":{
-                            "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
-                            "operator":"Equal",
-                            "matchValue":".txt"}
                     }
                     ]
                 },
