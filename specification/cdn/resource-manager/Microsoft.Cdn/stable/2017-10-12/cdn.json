@@ -3363,7 +3363,7 @@
     },
     "DeliveryRuleRequestHeaderAction": {
       "description": "Defines the request header action for the delivery rule.",
-      "x-ms-discriminator-value": "RequestHeader",
+      "x-ms-discriminator-value": "ModifyRequestHeader",
       "allOf": [
         {
           "$ref": "#/definitions/DeliveryRuleAction"
@@ -3375,11 +3375,29 @@
       "properties": {
         "parameters": {
           "description": "Defines the parameters for the action.",
-          "$ref": "#/definitions/RequestHeaderActionParameters"
+          "$ref": "#/definitions/HeaderActionParameters"
         }
       }
     },
-    "RequestHeaderActionParameters": {
+    "DeliveryRuleResponseHeaderAction": {
+        "description": "Defines the response header action for the delivery rule.",
+        "x-ms-discriminator-value": "ModifyResponseHeader",
+        "allOf": [
+          {
+            "$ref": "#/definitions/DeliveryRuleAction"
+          }
+        ],
+        "required":[
+          "parameters"
+        ],
+        "properties": {
+          "parameters": {
+            "description": "Defines the parameters for the action.",
+            "$ref": "#/definitions/HeaderActionParameters"
+          }
+        }
+      },
+    "HeaderActionParameters": {
       "description": "Defines the parameters for the request header action.",
       "required": [
         "headerAction",
@@ -3390,7 +3408,7 @@
         "@odata.type": {
           "type": "string",
           "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleRequestHeaderActionParameters"
+            "Microsoft.Azure.Cdn.Models.DeliveryRuleHeaderActionParameters"
           ]  
         },
         "headerAction": {
@@ -3408,53 +3426,6 @@
           }
       }
     },
-    "DeliveryRuleResponseHeaderAction": {
-        "description": "Defines the response header action for the delivery rule.",
-        "x-ms-discriminator-value": "ResponseHeader",
-        "allOf": [
-          {
-            "$ref": "#/definitions/DeliveryRuleAction"
-          }
-        ],
-        "required":[
-          "parameters"
-        ],
-        "properties": {
-          "parameters": {
-            "description": "Defines the parameters for the action.",
-            "$ref": "#/definitions/ResponseHeaderActionParameters"
-          }
-        }
-      },
-      "ResponseHeaderActionParameters": {
-        "description": "Defines the parameters for the response header action.",
-        "required": [
-          "headerAction",
-          "value",
-          "@odata.type"
-        ],
-        "properties": {
-          "@odata.type": {
-            "type": "string",
-            "enum": [
-              "Microsoft.Azure.Cdn.Models.DeliveryRuleResponseHeaderActionParameters"
-            ]  
-          },
-          "headerAction": {
-            "description": "Action to perform",
-            "type": "string",
-            "enum": [
-              "Append",
-              "Overwrite",
-              "Delete"
-            ]
-          },
-          "value": {
-              "description": "Value for the specified action",
-              "type": "string"
-            }
-        }
-      },
     "DeliveryRuleCacheExpirationAction": {
       "description": "Defines the cache expiration action for the delivery rule.",
       "x-ms-discriminator-value": "CacheExpiration",
