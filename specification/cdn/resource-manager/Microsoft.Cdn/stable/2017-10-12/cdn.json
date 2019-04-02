@@ -2289,7 +2289,6 @@
             "IsMobile",
             "UrlScheme",
             "Cookie",
-            "UrlWildcard",
             "HostName"
           ]
         }
@@ -2297,7 +2296,7 @@
     },
     "DeliveryRuleRemoteAddrCondition": {
       "description": "Defines the RemoteAddr condition for the delivery rule.",
-      "x-ms-discriminator-value": "UrlScheme",
+      "x-ms-discriminator-value": "RemoteAddr",
       "allOf": [
         {
           "$ref": "#/definitions/DeliveryRuleCondition"
@@ -2493,42 +2492,6 @@
         }
       }
     },
-    "DeliveryRuleCookieCondition": {
-      "description": "Defines the Cookie condition for the delivery rule.",
-      "x-ms-discriminator-value": "Cookie",
-      "allOf": [
-        {
-          "$ref": "#/definitions/DeliveryRuleCondition"
-        }
-      ],
-      "required": [
-        "parameters"
-      ],
-      "properties": {
-        "parameters": {
-          "description": "Defines the parameters for the condition.",
-          "$ref": "#/definitions/CookieMatchConditionParameters"
-        }
-      }
-    },
-    "DeliveryRuleUrlWildcardCondition": {
-      "description": "Defines the UrlWildcard condition for the delivery rule.",
-      "x-ms-discriminator-value": "UrlWildcard",
-      "allOf": [
-        {
-          "$ref": "#/definitions/DeliveryRuleCondition"
-        }
-      ],
-      "required": [
-        "parameters"
-      ],
-      "properties": {
-        "parameters": {
-          "description": "Defines the parameters for the condition.",
-          "$ref": "#/definitions/UrlWildcardMatchConditionParameters"
-        }
-      }
-    },
     "DeliveryRuleUrlSchemeCondition": {
       "description": "Defines the UrlScheme condition for the delivery rule.",
       "x-ms-discriminator-value": "UrlScheme",
@@ -2544,6 +2507,24 @@
         "parameters": {
           "description": "Defines the parameters for the condition.",
           "$ref": "#/definitions/UrlSchemeMatchConditionParameters"
+        }
+      }
+    },
+    "DeliveryRuleCookieCondition": {
+      "description": "Defines the Cookie condition for the delivery rule.",
+      "x-ms-discriminator-value": "Cookie",
+      "allOf": [
+        {
+          "$ref": "#/definitions/DeliveryRuleCondition"
+        }
+      ],
+      "required": [
+        "parameters"
+      ],
+      "properties": {
+        "parameters": {
+          "description": "Defines the parameters for the condition.",
+          "$ref": "#/definitions/CookieMatchConditionParameters"
         }
       }
     },
@@ -2569,7 +2550,8 @@
       "description": "Defines the parameters for RemoteAddr match conditions",
       "required": [
         "operator",
-        "matchvalue",
+        "matchValue",
+        "negateCondition",
         "@odata.type"
       ],
       "properties": {
@@ -2593,8 +2575,11 @@
           "type": "boolean"
         },
         "matchValue": {
-          "description": "The match value for the condition of the delivery rule",
-          "type": "string"
+          "description": "Match values to match against. The operator will apply to each value in here with OR semantics. If any of them match the variable with the given operator this match condition is considered a match.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "transforms": {
           "description": "List of transforms",
@@ -2605,11 +2590,56 @@
         }
       }
     },
+    "RequestMethodMatchConditionParameters": {
+      "description": "Defines the parameters for match conditions for RequestMethod",
+      "required": [
+        "operator",
+        "matchValue",
+        "negateCondition",
+        "@odata.type"
+      ],
+      "properties": {
+        "@odata.type": {
+          "type": "string",
+          "enum": [
+            "Microsoft.Azure.Cdn.Models.DeliveryRuleRequestMethodConditionParameters"
+          ]  
+        },
+        "operator": {
+          "description": "Describes operator to be matched",
+          "type": "string",
+          "enum": [
+            "Equal"
+          ]
+        },
+        "negateCondition": {
+          "description": "Describes if this is negate condition or not",
+          "type": "boolean"
+        },
+        "matchValue": {
+          "description": "The match value for the condition of the delivery rule","type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "GET",
+              "HEAD",
+              "POST",
+              "PUT",
+              "DELETE",
+              "OPTIONS",
+              "TRACE",
+              "CONNECT"
+            ]
+          }
+        }
+      }
+    },
     "QueryStringMatchConditionParameters": {
       "description": "Defines the parameters for QueryString match conditions",
       "required": [
         "operator",
-        "matchvalue",
+        "matchValue",
+        "negateCondition",
         "@odata.type"
       ],
       "properties": {
@@ -2640,7 +2670,10 @@
         },
         "matchValue": {
           "description": "The match value for the condition of the delivery rule",
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "transforms": {
           "description": "List of transforms",
@@ -2650,109 +2683,13 @@
           }
         }
       }
-    },
-    "RequestUriMatchConditionParameters": {
-      "description": "Defines the parameters for RequestUri match conditions",
-      "required": [
-        "operator",
-        "matchvalue",
-        "@odata.type"
-      ],
-      "properties": {
-        "@odata.type": {
-          "type": "string",
-          "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleRequestUriConditionParameters"
-          ]  
-        },
-        "operator": {
-          "description": "Describes operator to be matched",
-          "type": "string",
-          "enum": [
-            "Any",
-            "Equal",
-            "Contains",
-            "BeginsWith",
-            "EndsWith",
-            "LessThan",
-            "LessThanOrEqual",
-            "GreaterThan",
-            "GeaterThanOrEqual"
-          ]
-        },
-        "negateCondition": {
-          "description": "Describes if this is negate condition or not",
-          "type": "boolean"
-        },
-        "matchValue": {
-          "description": "The match value for the condition of the delivery rule",
-          "type": "string"
-        },
-        "transforms": {
-          "description": "List of transforms",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/transform"
-          }
-        }
-      }
-    },
-    "RequestHeaderMatchConditionParameters": {
-      "description": "Defines the parameters for generall match conditions",
-      "required": [
-        "operator",
-        "matchvalue",
-        "selector",
-        "@odata.type"
-      ],
-      "properties": {
-        "@odata.type": {
-          "type": "string",
-          "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleGeneralConditionParameters"
-          ]  
-        },
-        "selector": {
-          "description": "Name of Header to be matched",
-          "type": "string"
-        },
-        "operator": {
-          "description": "Describes operator to be matched",
-          "type": "string",
-          "enum": [
-            "Any",
-            "Equal",
-            "Contains",
-            "BeginsWith",
-            "EndsWith",
-            "LessThan",
-            "LessThanOrEqual",
-            "GreaterThan",
-            "GeaterThanOrEqual"
-          ]
-        },
-        "negateCondition": {
-          "description": "Describes if this is negate condition or not",
-          "type": "boolean"
-        },
-        "matchValue": {
-          "description": "The match value for the condition of the delivery rule",
-          "type": "string"
-        },
-        "transforms": {
-          "description": "List of transforms",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/transform"
-          }
-        }
-      }
-    },
+    },  
     "PostArgsMatchConditionParameters": {
       "description": "Defines the parameters for PostArgs match conditions",
       "required": [
         "operator",
-        "matchvalue",
+        "matchValue",
+        "negateCondition",
         "selector",
         "@odata.type"
       ],
@@ -2788,7 +2725,115 @@
         },
         "matchValue": {
           "description": "The match value for the condition of the delivery rule",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "transforms": {
+          "description": "List of transforms",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/transform"
+          }
+        }
+      }
+    },
+    "RequestUriMatchConditionParameters": {
+      "description": "Defines the parameters for RequestUri match conditions",
+      "required": [
+        "operator",
+        "matchValue",
+        "negateCondition",
+        "@odata.type"
+      ],
+      "properties": {
+        "@odata.type": {
+          "type": "string",
+          "enum": [
+            "Microsoft.Azure.Cdn.Models.DeliveryRuleRequestUriConditionParameters"
+          ]  
+        },
+        "operator": {
+          "description": "Describes operator to be matched",
+          "type": "string",
+          "enum": [
+            "Any",
+            "Equal",
+            "Contains",
+            "BeginsWith",
+            "EndsWith",
+            "LessThan",
+            "LessThanOrEqual",
+            "GreaterThan",
+            "GeaterThanOrEqual"
+          ]
+        },
+        "negateCondition": {
+          "description": "Describes if this is negate condition or not",
+          "type": "boolean"
+        },
+        "matchValue": {
+          "description": "The match value for the condition of the delivery rule",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "transforms": {
+          "description": "List of transforms",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/transform"
+          }
+        }
+      }
+    },
+    "RequestHeaderMatchConditionParameters": {
+      "description": "Defines the parameters for generall match conditions",
+      "required": [
+        "operator",
+        "matchValue",
+        "negateCondition",
+        "selector",
+        "@odata.type"
+      ],
+      "properties": {
+        "@odata.type": {
+          "type": "string",
+          "enum": [
+            "Microsoft.Azure.Cdn.Models.DeliveryRuleGeneralConditionParameters"
+          ]  
+        },
+        "selector": {
+          "description": "Name of Header to be matched",
           "type": "string"
+        },
+        "operator": {
+          "description": "Describes operator to be matched",
+          "type": "string",
+          "enum": [
+            "Any",
+            "Equal",
+            "Contains",
+            "BeginsWith",
+            "EndsWith",
+            "LessThan",
+            "LessThanOrEqual",
+            "GreaterThan",
+            "GeaterThanOrEqual"
+          ]
+        },
+        "negateCondition": {
+          "description": "Describes if this is negate condition or not",
+          "type": "boolean"
+        },
+        "matchValue": {
+          "description": "The match value for the condition of the delivery rule",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "transforms": {
           "description": "List of transforms",
@@ -2803,7 +2848,8 @@
       "description": "Defines the parameters for RequestBody match conditions",
       "required": [
         "operator",
-        "matchvalue",
+        "matchValue",
+        "negateCondition",
         "@odata.type"
       ],
       "properties": {
@@ -2834,7 +2880,10 @@
         },
         "matchValue": {
           "description": "The match value for the condition of the delivery rule",
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "transforms": {
           "description": "List of transforms",
@@ -2849,7 +2898,8 @@
       "description": "Defines the parameters for UrlPath match conditions",
       "required": [
         "operator",
-        "matchvalue",
+        "matchValue",
+        "negateCondition",
         "@odata.type"
       ],
       "properties": {
@@ -2880,7 +2930,10 @@
         },
         "matchValue": {
           "description": "The match value for the condition of the delivery rule",
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "transforms": {
           "description": "List of transforms",
@@ -2891,11 +2944,62 @@
         }
       }
     },
+    "UrlFileExtensionMatchConditionParameters": {
+      "description": "Defines the parameters for UrlFileExtension match conditions",
+      "required": [
+        "operator",
+        "matchValue",
+        "negateCondition",
+        "@odata.type"
+      ],
+      "properties": {
+        "@odata.type": {
+          "type": "string",
+          "enum": [
+            "Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters"
+          ]  
+        },
+        "operator": {
+          "description": "Describes operator to be matched",
+          "type": "string",
+          "enum": [
+            "Any",
+            "Equal",
+            "Contains",
+            "BeginsWith",
+            "EndsWith",
+            "LessThan",
+            "LessThanOrEqual",
+            "GreaterThan",
+            "GeaterThanOrEqual"
+          ]
+        },
+        "negateCondition": {
+          "description": "Describes if this is negate condition or not",
+          "type": "boolean"
+        },
+        "matchValue": {
+          "description": "The match value for the condition of the delivery rule",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "transforms": {
+          "description": "List of transforms",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/transform"
+          }
+        }
+      }
+    },   
     "UrlFilenameMatchConditionParameters": {
       "description": "Defines the parameters for UrlFilename match conditions",
       "required": [
         "operator",
-        "matchvalue",
+        "matchValue",
+        "negateCondition",
         "@odata.type"
       ],
       "properties": {
@@ -2926,7 +3030,10 @@
         },
         "matchValue": {
           "description": "The match value for the condition of the delivery rule",
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "transforms": {
           "description": "List of transforms",
@@ -2936,111 +3043,20 @@
           }
         }
       }
-    },
-    "UrlFilenameExtensionMatchConditionParameters": {
-      "description": "Defines the parameters for UrlFilenameExtension match conditions",
+    }, 
+    "IsMobileMatchConditionParameters": {
+      "description": "Defines the parameters for IsMobile match conditions",
       "required": [
         "operator",
-        "matchvalue",
+        "matchValue",
+        "negateCondition",
         "@odata.type"
       ],
       "properties": {
         "@odata.type": {
           "type": "string",
           "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFilenameExtensionConditionParameters"
-          ]  
-        },
-        "operator": {
-          "description": "Describes operator to be matched",
-          "type": "string",
-          "enum": [
-            "Any",
-            "Equal",
-            "Contains",
-            "BeginsWith",
-            "EndsWith",
-            "LessThan",
-            "LessThanOrEqual",
-            "GreaterThan",
-            "GeaterThanOrEqual"
-          ]
-        },
-        "negateCondition": {
-          "description": "Describes if this is negate condition or not",
-          "type": "boolean"
-        },
-        "matchValue": {
-          "description": "The match value for the condition of the delivery rule",
-          "type": "string"
-        },
-        "transforms": {
-          "description": "List of transforms",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/transform"
-          }
-        }
-      }
-    },    
-    "HostNameMatchConditionParameters": {
-      "description": "Defines the parameters for HostName match conditions",
-      "required": [
-        "operator",
-        "matchvalue",
-        "@odata.type"
-      ],
-      "properties": {
-        "@odata.type": {
-          "type": "string",
-          "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleHostNameConditionParameters"
-          ]  
-        },
-        "operator": {
-          "description": "Describes operator to be matched",
-          "type": "string",
-          "enum": [
-            "Any",
-            "Equal",
-            "Contains",
-            "BeginsWith",
-            "EndsWith",
-            "LessThan",
-            "LessThanOrEqual",
-            "GreaterThan",
-            "GeaterThanOrEqual"
-          ]
-        },
-        "negateCondition": {
-          "description": "Describes if this is negate condition or not",
-          "type": "boolean"
-        },
-        "matchValue": {
-          "description": "The match value for the condition of the delivery rule",
-          "type": "string"
-        },
-        "transforms": {
-          "description": "List of transforms",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/transform"
-          }
-        }
-      }
-    },    
-    "UrlWildcardMatchConditionParameters": {
-      "description": "Defines the parameters for UrlWildcard match conditions, this one will not be supported in MicrosoftCDN",
-      "required": [
-        "operator",
-        "matchvalue",
-        "@odata.type"
-      ],
-      "properties": {
-        "@odata.type": {
-          "type": "string",
-          "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleUrlWildcardConditionParameters"
+            "Microsoft.Azure.Cdn.Models.DeliveryRuleIsMobileConditionParameters"
           ]  
         },
         "operator": {
@@ -3056,7 +3072,14 @@
         },
         "matchValue": {
           "description": "The match value for the condition of the delivery rule",
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Mobile",
+              "Desktop"
+            ]
+          }
         },
         "transforms": {
           "description": "List of transforms",
@@ -3071,7 +3094,8 @@
       "description": "Defines the parameters for Cookie match conditions, this one will not be supported in MicrosoftCDN",
       "required": [
         "operator",
-        "matchvalue",
+        "matchValue",
+        "negateCondition",
         "selector",
         "@odata.type"
       ],
@@ -3107,49 +3131,10 @@
         },
         "matchValue": {
           "description": "The match value for the condition of the delivery rule",
-          "type": "string"
-        },
-        "transforms": {
-          "description": "List of transforms",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/transform"
+            "type": "string"
           }
-        }
-      }
-    },
-    "IsMobileExtensionMatchConditionParameters": {
-      "description": "Defines the parameters for IsMobile match conditions",
-      "required": [
-        "operator",
-        "matchvalue",
-        "@odata.type"
-      ],
-      "properties": {
-        "@odata.type": {
-          "type": "string",
-          "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleIsMobileConditionParameters"
-          ]  
-        },
-        "operator": {
-          "description": "Describes operator to be matched",
-          "type": "string",
-          "enum": [
-            "Equal"
-          ]
-        },
-        "negateCondition": {
-          "description": "Describes if this is negate condition or not",
-          "type": "boolean"
-        },
-        "matchValue": {
-          "description": "The match value for the condition of the delivery rule",
-          "type": "string",
-          "enum": [
-            "Mobile",
-            "Desktop"
-          ]
         },
         "transforms": {
           "description": "List of transforms",
@@ -3164,7 +3149,8 @@
       "description": "Defines the parameters for match conditions for UrlScheme",
       "required": [
         "operator",
-        "matchvalue",
+        "matchValue",
+        "negateCondition",
         "@odata.type"
       ],
       "properties": {
@@ -3187,33 +3173,45 @@
         },
         "matchValue": {
           "description": "The match value for the condition of the delivery rule",
-          "type": "string",
-          "enum": [
-            "HTTP",
-            "HTTPS"
-          ]
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "HTTP",
+              "HTTPS"
+            ]
+          }
         }
       }
     },
-    "RequestMethodMatchConditionParameters": {
-      "description": "Defines the parameters for match conditions for RequestMethod",
+    "HostNameMatchConditionParameters": {
+      "description": "Defines the parameters for HostName match conditions",
       "required": [
         "operator",
-        "matchvalue",
+        "matchValue",
+        "negateCondition",
         "@odata.type"
       ],
       "properties": {
         "@odata.type": {
           "type": "string",
           "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleRequestMethodConditionParameters"
+            "Microsoft.Azure.Cdn.Models.DeliveryRuleHostNameConditionParameters"
           ]  
         },
         "operator": {
           "description": "Describes operator to be matched",
           "type": "string",
           "enum": [
-            "Equal"
+            "Any",
+            "Equal",
+            "Contains",
+            "BeginsWith",
+            "EndsWith",
+            "LessThan",
+            "LessThanOrEqual",
+            "GreaterThan",
+            "GeaterThanOrEqual"
           ]
         },
         "negateCondition": {
@@ -3222,20 +3220,20 @@
         },
         "matchValue": {
           "description": "The match value for the condition of the delivery rule",
-          "type": "string",
-          "enum": [
-            "GET",
-            "HEAD",
-            "POST",
-            "PUT",
-            "DELETE",
-            "OPTIONS",
-            "TRACE",
-            "CONNECT"
-          ]
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "transforms": {
+          "description": "List of transforms",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/transform"
+          }
         }
       }
-    },
+    },    
     "DeliveryRuleAction": {
       "description": "An action for the delivery rule.",
       "discriminator": "name",
