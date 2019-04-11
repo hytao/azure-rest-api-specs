@@ -3481,6 +3481,23 @@
         }
       }
     },
+    "transform": {
+      "description": "Describes what transforms are applied before matching",
+      "type": "string",
+      "enum": [
+        "Lowercase",
+        "Uppercase",
+        "Trim",
+        "UrlDecode",
+        "UrlEncode",
+        "RemoveNulls",
+        "HtmlEntityDecode"
+      ],
+      "x-ms-enum": {
+        "name": "transform",
+        "modelAsString": true
+      }
+    },
     "DeepCreatedOrigin": {
       "description": "The main origin of CDN content which is added when creating a CDN endpoint.",
       "type": "object",
