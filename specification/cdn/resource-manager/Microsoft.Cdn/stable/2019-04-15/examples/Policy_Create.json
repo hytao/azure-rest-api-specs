@@ -1,7 +1,7 @@
 {
     "name": "string",
     "type": "Microsoft.Cdn/profiles/endpoints",
-    "apiVersion": "2017-10-12",
+    "apiVersion": "2019-04-15",
     "location": "string",
     "tags": {},
     "properties": {
