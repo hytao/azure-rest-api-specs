@@ -2276,7 +2276,7 @@
           "description": "The name of the condition for the delivery rule.",
           "type": "string",
           "enum": [
-            "RemoteAddr",
+            "RemoteAddress",
             "RequestMethod",
             "QueryString",
             "PostArgs",
@@ -2294,9 +2294,9 @@
         }
       }
     },
-    "DeliveryRuleRemoteAddrCondition": {
-      "description": "Defines the RemoteAddr condition for the delivery rule.",
-      "x-ms-discriminator-value": "RemoteAddr",
+    "DeliveryRuleRemoteAddressCondition": {
+      "description": "Defines the RemoteAddress condition for the delivery rule.",
+      "x-ms-discriminator-value": "RemoteAddress",
       "allOf": [
         {
           "$ref": "#/definitions/DeliveryRuleCondition"
@@ -2308,7 +2308,7 @@
       "properties": {
         "parameters": {
           "description": "Defines the parameters for the condition.",
-          "$ref": "#/definitions/RemoteAddrMatchConditionParameters"
+          "$ref": "#/definitions/RemoteAddressMatchConditionParameters"
         }
       }
     },
@@ -2546,8 +2546,8 @@
         }
       }
     },
-    "RemoteAddrMatchConditionParameters": {
-      "description": "Defines the parameters for RemoteAddr match conditions",
+    "RemoteAddressMatchConditionParameters": {
+      "description": "Defines the parameters for RemoteAddress match conditions",
       "required": [
         "operator",
         "matchValue",
@@ -2558,7 +2558,7 @@
         "@odata.type": {
           "type": "string",
           "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleRemoteAddrConditionParameters"
+            "Microsoft.Azure.Cdn.Models.DeliveryRuleRemoteAddressConditionParameters"
           ]  
         },
         "operator": {

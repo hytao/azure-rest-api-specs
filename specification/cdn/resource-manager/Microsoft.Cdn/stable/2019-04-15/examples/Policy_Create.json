@@ -32,7 +32,7 @@
             "order": "1",
             "conditions": [
             {
-                "name": "RemoteAddr",
+                "name": "RemoteAddress",
                 "parameters":{
                     "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
                     "operator":"IPMatch",
