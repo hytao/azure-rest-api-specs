@@ -2773,7 +2773,7 @@
           "description": "Describes if this is negate condition or not",
           "type": "boolean"
         },
-        "matchValuess": {
+        "matchValues": {
           "description": "The match value for the condition of the delivery rule",
           "type": "array",
           "items": {
@@ -3255,7 +3255,7 @@
     },
     "UrlRedirectAction": {
       "description": "Defines the url redirect action for the delivery rule.",
-      "x-ms-discriminator-value": "RequestHeader",
+      "x-ms-discriminator-value": "UrlRedirect",
       "allOf": [
         {
           "$ref": "#/definitions/DeliveryRuleAction"
