@@ -37,7 +37,7 @@
                     "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
                     "operator":"IPMatch",
                     "negateCondition": false,
-                    "matchValue":[
+                    "matchValues":[
                     "192.168.1.0/24",
                     "10.0.0.0/24"]
                 }
@@ -48,7 +48,7 @@
                     "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
                     "operator":"Equal",
                     "negateCondition": true,
-                    "matchValue":[
+                    "matchValues":[
                         "GET"]
                 }
             },
@@ -58,7 +58,7 @@
                     "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
                     "operator":"Equal",
                     "negateCondition": false,
-                    "matchValue":[
+                    "matchValues":[
                         "randomString"]
                 }
             },
@@ -68,7 +68,7 @@
                     "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
                     "operator":"All",
                     "negateCondition": false,
-                    "matchValue":[]
+                    "matchValues":[]
                 }
             },
             {
@@ -77,7 +77,7 @@
                     "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
                     "operator":"Contains",
                     "negateCondition": false,
-                    "matchValue":[
+                    "matchValues":[
                         "randomString"]
                 }
             },
@@ -88,7 +88,7 @@
                     "operator":"Contains",
                     "selector":"Accept-Encoding",
                     "negateCondition": false,
-                    "matchValue":[
+                    "matchValues":[
                         "gzip"]
                 }
             },
@@ -97,7 +97,7 @@
                 "parameters":{
                     "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
                     "operator":"Equal",
-                    "matchValue":[
+                    "matchValues":[
                         "test"
                     ]
                 }
@@ -107,7 +107,7 @@
                 "parameters":{
                     "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
                     "operator":"BeginsWith",
-                    "matchValue":[
+                    "matchValues":[
                         "abc"
                     ]
                 }
@@ -117,7 +117,7 @@
                 "parameters":{
                     "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
                     "operator":"EndsWith",
-                    "matchValue":[
+                    "matchValues":[
                         ".txt"
                     ]
                 }
@@ -127,7 +127,7 @@
                 "parameters":{
                     "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
                     "operator":"BeginsWith",
-                    "matchValue":[
+                    "matchValues":[
                         "abc"
                     ]
                 }
@@ -137,7 +137,7 @@
                 "parameters":{
                     "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
                     "operator":"Equal",
-                    "matchValue":[
+                    "matchValues":[
                         "Desktop"
                     ]
                 }
@@ -147,7 +147,7 @@
                 "parameters":{
                     "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
                     "operator":"Contains",
-                    "matchValue":[
+                    "matchValues":[
                         "abc"
                     ]
                 }
@@ -157,7 +157,7 @@
                 "parameters":{
                     "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
                     "operator":"Equal",
-                    "matchValue":[
+                    "matchValues":[
                         "HTTP"
                     ]
                 }
@@ -167,7 +167,7 @@
                 "parameters":{
                     "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
                     "operator":"Contains",
-                    "matchValue":[
+                    "matchValues":[
                         "abc"
                     ]
                 }
@@ -195,7 +195,7 @@
                     "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleRequestHeaderConditionParameters",
                     "operator":"Contains",
                     "selector":"Accept-Encoding",
-                    "matchValue":"gzip"}
+                    "matchValues":"gzip"}
             }
             ],
             "actions": [

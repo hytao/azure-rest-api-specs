@@ -2550,7 +2550,7 @@
       "description": "Defines the parameters for RemoteAddress match conditions",
       "required": [
         "operator",
-        "matchValue",
+        "matchValues",
         "negateCondition",
         "@odata.type"
       ],
@@ -2574,7 +2574,7 @@
           "description": "Describes if this is negate condition or not",
           "type": "boolean"
         },
-        "matchValue": {
+        "matchValues": {
           "description": "Match values to match against. The operator will apply to each value in here with OR semantics. If any of them match the variable with the given operator this match condition is considered a match.",
           "type": "array",
           "items": {
@@ -2594,7 +2594,7 @@
       "description": "Defines the parameters for match conditions for RequestMethod",
       "required": [
         "operator",
-        "matchValue",
+        "matchValues",
         "negateCondition",
         "@odata.type"
       ],
@@ -2616,7 +2616,7 @@
           "description": "Describes if this is negate condition or not",
           "type": "boolean"
         },
-        "matchValue": {
+        "matchValues": {
           "description": "The match value for the condition of the delivery rule","type": "array",
           "items": {
             "type": "string",
@@ -2638,7 +2638,7 @@
       "description": "Defines the parameters for QueryString match conditions",
       "required": [
         "operator",
-        "matchValue",
+        "matchValues",
         "negateCondition",
         "@odata.type"
       ],
@@ -2668,7 +2668,7 @@
           "description": "Describes if this is negate condition or not",
           "type": "boolean"
         },
-        "matchValue": {
+        "matchValues": {
           "description": "The match value for the condition of the delivery rule",
           "type": "array",
           "items": {
@@ -2688,7 +2688,7 @@
       "description": "Defines the parameters for PostArgs match conditions",
       "required": [
         "operator",
-        "matchValue",
+        "matchValues",
         "negateCondition",
         "selector",
         "@odata.type"
@@ -2723,7 +2723,7 @@
           "description": "Describes if this is negate condition or not",
           "type": "boolean"
         },
-        "matchValue": {
+        "matchValues": {
           "description": "The match value for the condition of the delivery rule",
           "type": "array",
           "items": {
@@ -2743,7 +2743,7 @@
       "description": "Defines the parameters for RequestUri match conditions",
       "required": [
         "operator",
-        "matchValue",
+        "matchValues",
         "negateCondition",
         "@odata.type"
       ],
@@ -2773,7 +2773,7 @@
           "description": "Describes if this is negate condition or not",
           "type": "boolean"
         },
-        "matchValue": {
+        "matchValuess": {
           "description": "The match value for the condition of the delivery rule",
           "type": "array",
           "items": {
@@ -2793,7 +2793,7 @@
       "description": "Defines the parameters for generall match conditions",
       "required": [
         "operator",
-        "matchValue",
+        "matchValues",
         "negateCondition",
         "selector",
         "@odata.type"
@@ -2828,7 +2828,7 @@
           "description": "Describes if this is negate condition or not",
           "type": "boolean"
         },
-        "matchValue": {
+        "matchValues": {
           "description": "The match value for the condition of the delivery rule",
           "type": "array",
           "items": {
@@ -2848,7 +2848,7 @@
       "description": "Defines the parameters for RequestBody match conditions",
       "required": [
         "operator",
-        "matchValue",
+        "matchValues",
         "negateCondition",
         "@odata.type"
       ],
@@ -2878,7 +2878,7 @@
           "description": "Describes if this is negate condition or not",
           "type": "boolean"
         },
-        "matchValue": {
+        "matchValues": {
           "description": "The match value for the condition of the delivery rule",
           "type": "array",
           "items": {
@@ -2898,7 +2898,7 @@
       "description": "Defines the parameters for UrlPath match conditions",
       "required": [
         "operator",
-        "matchValue",
+        "matchValues",
         "negateCondition",
         "@odata.type"
       ],
@@ -2928,7 +2928,7 @@
           "description": "Describes if this is negate condition or not",
           "type": "boolean"
         },
-        "matchValue": {
+        "matchValues": {
           "description": "The match value for the condition of the delivery rule",
           "type": "array",
           "items": {
@@ -2948,7 +2948,7 @@
       "description": "Defines the parameters for UrlFileExtension match conditions",
       "required": [
         "operator",
-        "matchValue",
+        "matchValues",
         "negateCondition",
         "@odata.type"
       ],
@@ -2978,7 +2978,7 @@
           "description": "Describes if this is negate condition or not",
           "type": "boolean"
         },
-        "matchValue": {
+        "matchValues": {
           "description": "The match value for the condition of the delivery rule",
           "type": "array",
           "items": {
@@ -2998,7 +2998,7 @@
       "description": "Defines the parameters for UrlFilename match conditions",
       "required": [
         "operator",
-        "matchValue",
+        "matchValues",
         "negateCondition",
         "@odata.type"
       ],
@@ -3028,7 +3028,7 @@
           "description": "Describes if this is negate condition or not",
           "type": "boolean"
         },
-        "matchValue": {
+        "matchValues": {
           "description": "The match value for the condition of the delivery rule",
           "type": "array",
           "items": {
@@ -3048,7 +3048,7 @@
       "description": "Defines the parameters for IsMobile match conditions",
       "required": [
         "operator",
-        "matchValue",
+        "matchValues",
         "negateCondition",
         "@odata.type"
       ],
@@ -3070,7 +3070,7 @@
           "description": "Describes if this is negate condition or not",
           "type": "boolean"
         },
-        "matchValue": {
+        "matchValues": {
           "description": "The match value for the condition of the delivery rule",
           "type": "array",
           "items": {
@@ -3094,7 +3094,7 @@
       "description": "Defines the parameters for Cookie match conditions, this one will not be supported in MicrosoftCDN",
       "required": [
         "operator",
-        "matchValue",
+        "matchValues",
         "negateCondition",
         "selector",
         "@odata.type"
@@ -3129,7 +3129,7 @@
           "description": "Describes if this is negate condition or not",
           "type": "boolean"
         },
-        "matchValue": {
+        "matchValues": {
           "description": "The match value for the condition of the delivery rule",
           "type": "array",
           "items": {
@@ -3149,7 +3149,7 @@
       "description": "Defines the parameters for match conditions for UrlScheme",
       "required": [
         "operator",
-        "matchValue",
+        "matchValues",
         "negateCondition",
         "@odata.type"
       ],
@@ -3171,7 +3171,7 @@
           "description": "Describes if this is negate condition or not",
           "type": "boolean"
         },
-        "matchValue": {
+        "matchValues": {
           "description": "The match value for the condition of the delivery rule",
           "type": "array",
           "items": {
@@ -3188,7 +3188,7 @@
       "description": "Defines the parameters for HostName match conditions",
       "required": [
         "operator",
-        "matchValue",
+        "matchValues",
         "negateCondition",
         "@odata.type"
       ],
@@ -3218,7 +3218,7 @@
           "description": "Describes if this is negate condition or not",
           "type": "boolean"
         },
-        "matchValue": {
+        "matchValues": {
           "description": "The match value for the condition of the delivery rule",
           "type": "array",
           "items": {
