@@ -5,227 +5,231 @@
     "location": "string",
     "tags": {},
     "properties": {
-      "originHostHeader": "string",
-      "originPath": "string",
-      "contentTypesToCompress": [
-        "string"
-      ],
-      "isCompressionEnabled": boolean,
-      "isHttpAllowed": boolean,
-      "isHttpsAllowed": boolean,
-      "queryStringCachingBehavior": "string",
-      "optimizationType": "string",
-      "probePath": "string",
-      "geoFilters": [
-        {
-          "relativePath": "string",
-          "action": "string",
-          "countryCodes": [
+        "originHostHeader": "string",
+        "originPath": "string",
+        "contentTypesToCompress": [
             "string"
-          ]
-        }
-      ],
-    "deliveryPolicy": {
-        "description": "Example rules",
-        "rules": [
-        {
-            "order": "1",
-            "conditions": [
+        ],
+        "isCompressionEnabled": boolean,
+        "isHttpAllowed": boolean,
+        "isHttpsAllowed": boolean,
+        "queryStringCachingBehavior": "string",
+        "optimizationType": "string",
+        "probePath": "string",
+        "geoFilters": [
             {
-                "name": "RemoteAddress",
-                "parameters":{
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleRemoteAddressConditionParameters",
-                    "operator":"IPMatch",
-                    "negateCondition": false,
-                    "matchValues":[
-                    "192.168.1.0/24",
-                    "10.0.0.0/24"]
-                }
-            },
-            {
-                "name": "RequestMethod",
-                "parameters":{
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleRequestMethodConditionParameters",
-                    "operator":"Equal",
-                    "negateCondition": true,
-                    "matchValues":[
-                        "GET"]
-                }
-            },
-            {
-                "name": "QueryString",
-                "parameters":{
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleQueryStringConditionParameters",
-                    "operator":"Equal",
-                    "negateCondition": false,
-                    "matchValues":[
-                        "randomString"]
-                }
-            },
-            {
-                "name": "PostArgs",
-                "parameters":{
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRulePostArgsConditionParameters",
-                    "operator":"All",
-                    "negateCondition": false,
-                    "matchValues":[]
-                }
-            },
-            {
-                "name": "RequestUri",
-                "parameters":{
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleRequestUriConditionParameters",
-                    "operator":"Contains",
-                    "negateCondition": false,
-                    "matchValues":[
-                        "randomString"]
-                }
-            },
-            {
-                "name": "RequestHeader",
-                "parameters":{
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleRequestHeaderConditionParameters",
-                    "operator":"Contains",
-                    "selector":"Accept-Encoding",
-                    "negateCondition": false,
-                    "matchValues":[
-                        "gzip"]
-                }
-            },
-            {
-                "name": "RequestBody",
-                "parameters":{
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleRequestBodyConditionParameters",
-                    "operator":"Equal",
-                    "matchValues":[
-                        "test"
-                    ]
-                }
-            },
-            {
-                "name": "UrlPath",
-                "parameters":{
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlPathConditionParameters",
-                    "operator":"BeginsWith",
-                    "matchValues":[
-                        "abc"
-                    ]
-                }
-            },
-            {
-                "name": "UrlFileExtension",
-                "parameters":{
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
-                    "operator":"EndsWith",
-                    "matchValues":[
-                        ".txt"
-                    ]
-                }
-            },
-            {
-                "name": "UrlFileName",
-                "parameters":{
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileNameConditionParameters",
-                    "operator":"BeginsWith",
-                    "matchValues":[
-                        "abc"
-                    ]
-                }
-            },
-            {
-                "name": "IsMobile",
-                "parameters":{
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleIsMobileConditionParameters",
-                    "operator":"Equal",
-                    "matchValues":[
-                        "Desktop"
-                    ]
-                }
-            },
-            {
-                "name": "Cookie",
-                "parameters":{
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleCookieConditionParameters",
-                    "operator":"Contains",
-                    "matchValues":[
-                        "abc"
-                    ]
-                }
-            },
-            {
-                "name": "UrlScheme",
-                "parameters":{
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlSchemeConditionParameters",
-                    "operator":"Equal",
-                    "matchValues":[
-                        "HTTP"
-                    ]
-                }
-            },
-            {
-                "name": "HostName",
-                "parameters":{
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleHostNameConditionParameters",
-                    "operator":"Contains",
-                    "matchValues":[
-                        "abc"
-                    ]
-                }
+                "relativePath": "string",
+                "action": "string",
+                "countryCodes": [
+                    "string"
+                ]
             }
-            ],
-            "actions": [
-            {
-                "name": "CacheExpiration",
-                "parameters": {
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleCacheExpirationActionParameters",
-                    "cacheBehavior":"BypassCache",
-                    "cacheDuration":null,
-                    "cacheType":"All"
+        ],
+        "deliveryPolicy": {
+            "description": "Example rules",
+            "rules": [
+                {
+                    "order": "1",
+                    "conditions": [
+                        {
+                            "name": "RemoteAddress",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleRemoteAddressConditionParameters",
+                                "operator": "IPMatch",
+                                "negateCondition": false,
+                                "matchValues": [
+                                    "192.168.1.0/24",
+                                    "10.0.0.0/24"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "RequestMethod",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleRequestMethodConditionParameters",
+                                "operator": "Equal",
+                                "negateCondition": true,
+                                "matchValues": [
+                                    "GET"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "QueryString",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleQueryStringConditionParameters",
+                                "operator": "Equal",
+                                "negateCondition": false,
+                                "matchValues": [
+                                    "randomString"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "PostArgs",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRulePostArgsConditionParameters",
+                                "operator": "All",
+                                "negateCondition": false,
+                                "matchValues": []
+                            }
+                        },
+                        {
+                            "name": "RequestUri",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleRequestUriConditionParameters",
+                                "operator": "Contains",
+                                "negateCondition": false,
+                                "matchValues": [
+                                    "randomString"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "RequestHeader",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleRequestHeaderConditionParameters",
+                                "operator": "Contains",
+                                "selector": "Accept-Encoding",
+                                "negateCondition": false,
+                                "matchValues": [
+                                    "gzip"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "RequestBody",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleRequestBodyConditionParameters",
+                                "operator": "Equal",
+                                "matchValues": [
+                                    "test"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "UrlPath",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlPathConditionParameters",
+                                "operator": "BeginsWith",
+                                "matchValues": [
+                                    "abc"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "UrlFileExtension",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileExtensionConditionParameters",
+                                "operator": "EndsWith",
+                                "matchValues": [
+                                    ".txt"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "UrlFileName",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlFileNameConditionParameters",
+                                "operator": "BeginsWith",
+                                "matchValues": [
+                                    "abc"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "IsMobile",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleIsMobileConditionParameters",
+                                "operator": "Equal",
+                                "matchValues": [
+                                    "Desktop"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "Cookie",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleCookieConditionParameters",
+                                "operator": "Contains",
+                                "matchValues": [
+                                    "abc"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "UrlScheme",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlSchemeConditionParameters",
+                                "operator": "Equal",
+                                "matchValues": [
+                                    "HTTP"
+                                ]
+                            }
+                        },
+                        {
+                            "name": "HostName",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleHostNameConditionParameters",
+                                "operator": "Contains",
+                                "matchValues": [
+                                    "abc"
+                                ]
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "name": "CacheExpiration",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleCacheExpirationActionParameters",
+                                "cacheBehavior": "BypassCache",
+                                "cacheDuration": null,
+                                "cacheType": "All"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "order": "2",
+                    "conditions": [
+                        {
+                            "name": "RequestHeader",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleRequestHeaderConditionParameters",
+                                "operator": "Contains",
+                                "selector": "Accept-Encoding",
+                                "matchValues": "gzip"
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "name": "UrlRedirect",
+                            "parameters": {
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlRedirectActionParameters",
+                                "statusCode": "301",
+                                "hostType": "StaticHost",
+                                "staticHost": "foo",
+                                "pathType": "StaticPath",
+                                "staticPath": "/compressed",
+                                "preserveQueryString": true
+                            }
+                        }
+                    ]
                 }
-
-            }
             ]
         },
-        {
-            "order": "2",
-            "conditions": [
+        "origins": [
             {
-                "name": "RequestHeader",
-                "parameters":{
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleRequestHeaderConditionParameters",
-                    "operator":"Contains",
-                    "selector":"Accept-Encoding",
-                    "matchValues":"gzip"}
-            }
-            ],
-            "actions": [
-            {
-                "name": "UrlRedirect",
-                "parameters": {
-                    "@odata.type":"#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlRedirectActionParameters",
-                    "statusCode":"301",
-                    "hostType":"StaticHost",
-                    "staticHost":"foo",
-                    "pathType":"StaticPath",
-                    "staticPath":"/compressed",
-                    "preserveQueryString":true
+                "name": "string",
+                "properties": {
+                    "hostName": "string",
+                    "httpPort": "integer",
+                    "httpsPort": "integer"
                 }
-
             }
-            ]
-        }
         ]
-    },
-    "origins": [
-        {
-        "name": "string",
-        "properties": {
-            "hostName": "string",
-            "httpPort": "integer",
-            "httpsPort": "integer"
-        }
-        }
-    ]
     },
     "resources": []
 }

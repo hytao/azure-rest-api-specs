@@ -2286,7 +2286,7 @@
             "UrlPath",
             "UrlFileExtension",
             "UrlFileName",
-            "IsMobile",
+            "IsDevice",
             "UrlScheme",
             "Cookie",
             "HostName"
@@ -2474,9 +2474,9 @@
         }
       }
     },
-    "DeliveryRuleIsMobileCondition": {
-      "description": "Defines the IsMobile condition for the delivery rule.",
-      "x-ms-discriminator-value": "IsMobile",
+    "DeliveryRuleIsDeviceCondition": {
+      "description": "Defines the IsDevice condition for the delivery rule.",
+      "x-ms-discriminator-value": "IsDevice",
       "allOf": [
         {
           "$ref": "#/definitions/DeliveryRuleCondition"
@@ -2488,7 +2488,7 @@
       "properties": {
         "parameters": {
           "description": "Defines the parameters for the condition.",
-          "$ref": "#/definitions/IsMobileMatchConditionParameters"
+          "$ref": "#/definitions/IsDeviceMatchConditionParameters"
         }
       }
     },
@@ -2802,7 +2802,7 @@
         "@odata.type": {
           "type": "string",
           "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleGeneralConditionParameters"
+            "Microsoft.Azure.Cdn.Models.DeliveryRuleRequestHeaderConditionParameters"
           ]  
         },
         "selector": {
@@ -3044,8 +3044,8 @@
         }
       }
     }, 
-    "IsMobileMatchConditionParameters": {
-      "description": "Defines the parameters for IsMobile match conditions",
+    "IsDeviceMatchConditionParameters": {
+      "description": "Defines the parameters for IsDevice match conditions",
       "required": [
         "operator",
         "matchValues",
@@ -3056,7 +3056,7 @@
         "@odata.type": {
           "type": "string",
           "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleIsMobileConditionParameters"
+            "Microsoft.Azure.Cdn.Models.DeliveryRuleIsDeviceConditionParameters"
           ]  
         },
         "operator": {
