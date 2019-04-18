@@ -138,9 +138,9 @@
                             }
                         },
                         {
-                            "name": "IsMobile",
+                            "name": "IsDevice",
                             "parameters": {
-                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleIsMobileConditionParameters",
+                                "@odata.type": "#Microsoft.Azure.Cdn.Models.DeliveryRuleIsDeviceConditionParameters",
                                 "operator": "Equal",
                                 "matchValues": [
                                     "Desktop"
