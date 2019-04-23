@@ -2286,11 +2286,12 @@
             "UrlPath",
             "UrlFileExtension",
             "UrlFileName",
-            "IsDevice",
-            "UrlScheme",
-            "Cookie",
-            "HostName"
-          ]
+            "IsDevice"
+          ],
+          "x-ms-enum": {
+            "name": "MatchVariable",
+            "modelAsString": true
+          }
         }
       }
     },
@@ -2492,60 +2493,6 @@
         }
       }
     },
-    "DeliveryRuleUrlSchemeCondition": {
-      "description": "Defines the UrlScheme condition for the delivery rule.",
-      "x-ms-discriminator-value": "UrlScheme",
-      "allOf": [
-        {
-          "$ref": "#/definitions/DeliveryRuleCondition"
-        }
-      ],
-      "required": [
-        "parameters"
-      ],
-      "properties": {
-        "parameters": {
-          "description": "Defines the parameters for the condition.",
-          "$ref": "#/definitions/UrlSchemeMatchConditionParameters"
-        }
-      }
-    },
-    "DeliveryRuleCookieCondition": {
-      "description": "Defines the Cookie condition for the delivery rule.",
-      "x-ms-discriminator-value": "Cookie",
-      "allOf": [
-        {
-          "$ref": "#/definitions/DeliveryRuleCondition"
-        }
-      ],
-      "required": [
-        "parameters"
-      ],
-      "properties": {
-        "parameters": {
-          "description": "Defines the parameters for the condition.",
-          "$ref": "#/definitions/CookieMatchConditionParameters"
-        }
-      }
-    },
-    "DeliveryRuleHostNameCondition": {
-      "description": "Defines the HostName condition for the delivery rule.",
-      "x-ms-discriminator-value": "HostName",
-      "allOf": [
-        {
-          "$ref": "#/definitions/DeliveryRuleCondition"
-        }
-      ],
-      "required": [
-        "parameters"
-      ],
-      "properties": {
-        "parameters": {
-          "description": "Defines the parameters for the condition.",
-          "$ref": "#/definitions/HostNameMatchConditionParameters"
-        }
-      }
-    },
     "RemoteAddressMatchConditionParameters": {
       "description": "Defines the parameters for RemoteAddress match conditions",
       "required": [
@@ -2568,7 +2515,11 @@
             "Any",
             "IPMatch",
             "GeoMatch"
-          ]
+          ],
+          "x-ms-enum": {
+            "name": "RemoteAddressOperator",
+            "modelAsString": true
+          }
         },
         "negateCondition": {
           "description": "Describes if this is negate condition or not",
@@ -2610,7 +2561,11 @@
           "type": "string",
           "enum": [
             "Equal"
-          ]
+          ],
+          "x-ms-enum": {
+            "name": "RequestMethodOperator",
+            "modelAsString": true
+          }
         },
         "negateCondition": {
           "description": "Describes if this is negate condition or not",
@@ -2662,7 +2617,11 @@
             "LessThanOrEqual",
             "GreaterThan",
             "GreaterThanOrEqual"
-          ]
+          ],
+          "x-ms-enum": {
+            "name": "QueryStringOperator",
+            "modelAsString": true
+          }
         },
         "negateCondition": {
           "description": "Describes if this is negate condition or not",
@@ -2717,7 +2676,11 @@
             "LessThanOrEqual",
             "GreaterThan",
             "GreaterThanOrEqual"
-          ]
+          ],
+          "x-ms-enum": {
+            "name": "PostArgsOperator",
+            "modelAsString": true
+          }
         },
         "negateCondition": {
           "description": "Describes if this is negate condition or not",
@@ -2767,7 +2730,11 @@
             "LessThanOrEqual",
             "GreaterThan",
             "GreaterThanOrEqual"
-          ]
+          ],
+          "x-ms-enum": {
+            "name": "RequestUriOperator",
+            "modelAsString": true
+          }
         },
         "negateCondition": {
           "description": "Describes if this is negate condition or not",
@@ -2822,7 +2789,11 @@
             "LessThanOrEqual",
             "GreaterThan",
             "GreaterThanOrEqual"
-          ]
+          ],
+          "x-ms-enum": {
+            "name": "RequestHeaderOperator",
+            "modelAsString": true
+          }
         },
         "negateCondition": {
           "description": "Describes if this is negate condition or not",
@@ -2872,7 +2843,11 @@
             "LessThanOrEqual",
             "GreaterThan",
             "GreaterThanOrEqual"
-          ]
+          ],
+          "x-ms-enum": {
+            "name": "RequestBodyOperator",
+            "modelAsString": true
+          }
         },
         "negateCondition": {
           "description": "Describes if this is negate condition or not",
@@ -2922,7 +2897,11 @@
             "LessThanOrEqual",
             "GreaterThan",
             "GreaterThanOrEqual"
-          ]
+          ],
+          "x-ms-enum": {
+            "name": "UrlPathOperator",
+            "modelAsString": true
+          }
         },
         "negateCondition": {
           "description": "Describes if this is negate condition or not",
@@ -2972,7 +2951,11 @@
             "LessThanOrEqual",
             "GreaterThan",
             "GreaterThanOrEqual"
-          ]
+          ],
+          "x-ms-enum": {
+            "name": "UrlFileExtensionOperator",
+            "modelAsString": true
+          }
         },
         "negateCondition": {
           "description": "Describes if this is negate condition or not",
@@ -2994,7 +2977,7 @@
         }
       }
     },   
-    "UrlFilenameMatchConditionParameters": {
+    "UrlFileNameMatchConditionParameters": {
       "description": "Defines the parameters for UrlFilename match conditions",
       "required": [
         "operator",
@@ -3022,7 +3005,11 @@
             "LessThanOrEqual",
             "GreaterThan",
             "GreaterThanOrEqual"
-          ]
+          ],
+          "x-ms-enum": {
+            "name": "UrlFileNameOperator",
+            "modelAsString": true
+          }
         },
         "negateCondition": {
           "description": "Describes if this is negate condition or not",
@@ -3064,7 +3051,11 @@
           "type": "string",
           "enum": [
             "Equal"
-          ]
+          ],
+          "x-ms-enum": {
+            "name": "IsDeviceOperator",
+            "modelAsString": true
+          }
         },
         "negateCondition": {
           "description": "Describes if this is negate condition or not",
@@ -3089,151 +3080,7 @@
           }
         }
       }
-    },
-    "CookieMatchConditionParameters": {
-      "description": "Defines the parameters for Cookie match conditions, this one will not be supported in MicrosoftCDN",
-      "required": [
-        "operator",
-        "matchValues",
-        "negateCondition",
-        "selector",
-        "@odata.type"
-      ],
-      "properties": {
-        "@odata.type": {
-          "type": "string",
-          "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleCookieConditionParameters"
-          ]  
-        },
-        "selector": {
-          "description": "Cookie name to be matched",
-          "type": "string"
-        },
-        "operator": {
-          "description": "Describes operator to be matched",
-          "type": "string",
-          "enum": [
-            "Any",
-            "Equal",
-            "Contains",
-            "BeginsWith",
-            "EndsWith",
-            "LessThan",
-            "LessThanOrEqual",
-            "GreaterThan",
-            "GreaterThanOrEqual"
-          ]
-        },
-        "negateCondition": {
-          "description": "Describes if this is negate condition or not",
-          "type": "boolean"
-        },
-        "matchValues": {
-          "description": "The match value for the condition of the delivery rule",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "transforms": {
-          "description": "List of transforms",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/transform"
-          }
-        }
-      }
-    },
-    "UrlSchemeMatchConditionParameters": {
-      "description": "Defines the parameters for match conditions for UrlScheme",
-      "required": [
-        "operator",
-        "matchValues",
-        "negateCondition",
-        "@odata.type"
-      ],
-      "properties": {
-        "@odata.type": {
-          "type": "string",
-          "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleUrlSchemeConditionParameters"
-          ]  
-        },
-        "operator": {
-          "description": "Describes operator to be matched",
-          "type": "string",
-          "enum": [
-            "Equal"
-          ]
-        },
-        "negateCondition": {
-          "description": "Describes if this is negate condition or not",
-          "type": "boolean"
-        },
-        "matchValues": {
-          "description": "The match value for the condition of the delivery rule",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "HTTP",
-              "HTTPS"
-            ]
-          }
-        }
-      }
-    },
-    "HostNameMatchConditionParameters": {
-      "description": "Defines the parameters for HostName match conditions",
-      "required": [
-        "operator",
-        "matchValues",
-        "negateCondition",
-        "@odata.type"
-      ],
-      "properties": {
-        "@odata.type": {
-          "type": "string",
-          "enum": [
-            "Microsoft.Azure.Cdn.Models.DeliveryRuleHostNameConditionParameters"
-          ]  
-        },
-        "operator": {
-          "description": "Describes operator to be matched",
-          "type": "string",
-          "enum": [
-            "Any",
-            "Equal",
-            "Contains",
-            "BeginsWith",
-            "EndsWith",
-            "LessThan",
-            "LessThanOrEqual",
-            "GreaterThan",
-            "GreaterThanOrEqual"
-          ]
-        },
-        "negateCondition": {
-          "description": "Describes if this is negate condition or not",
-          "type": "boolean"
-        },
-        "matchValues": {
-          "description": "The match value for the condition of the delivery rule",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "transforms": {
-          "description": "List of transforms",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/transform"
-          }
-        }
-      }
-    },    
+    },  
     "DeliveryRuleAction": {
       "description": "An action for the delivery rule.",
       "discriminator": "name",
@@ -3249,7 +3096,11 @@
             "ModifyRequestHeader",
             "ModifyResponseHeader",
             "UrlRedirect"
-          ]
+          ],
+          "x-ms-enum": {
+            "name": "DeliveryRuleAction",
+            "modelAsString": true
+          }
         }
       }
     },
@@ -3294,62 +3145,32 @@
             "Found",
             "TemporaryRedirect",
             "PermanentRedirect"
-          ]
-        },
-        "pathType": {
-          "description": "How the path in the redirect URL is applied. You can choose from ​static path, addPrefix, addSuffix and preservePath",
-          "type": "string",
-          "enum": [
-            "StaticPath",
-            "AddPathSuffix",
-            "AddPathPrefix",
-          ]
-        },
-        "staticPath": {
-            "description": "Include if path is set to staticPath.Leave empty to use use the incoming path as the destination path.",
-            "type": "string"
-        },
-        "pathSuffix": {
-            "description": "Include if path is set to addPathSuffix",
-            "type": "string"
-        },
-        "pathPrefix": {
-            "description": "Include if path is set to addPathPrefix",
-            "type": "string"
-        },
-        "hostType":{
-          "description": "The hostname that should be used in the redirect URL. You can choose from StaticHost, AddSubDomain or ReplaceSubDomain.",
-          "type": "string",
-          "enum": [
-            "StaticHostname",
-            "AddsubDomain",
-            "ReplacesubDomain"
-          ]
-        },
-        "staticHostname":{
-          "description": "Include if hostname is set to StaticHostname. Leave empty to use the incoming host as destination host.",
-          "type": "string"
-        },
-        "subDomain":{
-          "description": "Include if hostname is set to addSubDomain or ReplaceSubDomain.",
-          "type": "string"
-        },
-        "preserveFilename":{
-          "description": "Include if path is set to staticPath. Indicates whether the path also includes the filename and extension for the redirect. Defaults to false.",
-          "type": "boolean"
+          ],
+          "x-ms-enum": {
+            "name": "RedirectType",
+            "modelAsString": true
+          }
         },
         "destinationProtocol":{
           "description": "Protocol to use for the redirect. The default value is MatchRequest",
           "type": "string",
           "enum": [
+            "MatchRequest",
             "Http",
-            "Https",
-            "MatchRequest"
-          ]
+            "Https"
+          ],
+          "x-ms-enum": {
+            "name": "DestinationProtocol",
+            "modelAsString": true
+          }
         },
-        "preserveQueryString":{
-          "description": "When enabled, retains the query string on the redirect request. Defaults to true.",
-          "type": "boolean"
+        "customPath": {
+            "description": "The full path to redirect. Path cannot be empty and must start with /. Leave empty to use the incoming path as destination path.",
+            "type": "string"
+        },
+        "customHostname":{
+          "description": "Host to redirect. Leave empty to use use the incoming host as the destination host.",
+          "type": "string"
         },
         "customQueryString":{
           "description": "The set of query strings to be placed in the redirect URL. Setting this value would replace any existing query string; leave empty to preserve the incoming query string. Query string must be in <key>=<value> format. ? and & will be added automatically so do not include them.",
@@ -3418,7 +3239,11 @@
             "Append",
             "Overwrite",
             "Delete"
-          ]
+          ],
+          "x-ms-enum": {
+            "name": "HeaderAction",
+            "modelAsString": true
+          }
         },
         "value": {
             "description": "Value for the specified action",
@@ -3465,14 +3290,22 @@
             "BypassCache",
             "Override",
             "SetIfMissing"  
-          ]
+          ],
+          "x-ms-enum": {
+            "name": "cacheBehavior",
+            "modelAsString": true
+          }
         },
         "cacheType": {
           "description": "The level at which the content needs to be cached.",
           "type": "string",
           "enum": [
             "All"
-          ]
+          ],
+          "x-ms-enum": {
+            "name": "CacheType",
+            "modelAsString": true
+          }
         },
         "cacheDuration": {
           "description": "The duration for which the content needs to be cached. Allowed format is [d.]hh:mm:ss",
@@ -3486,12 +3319,7 @@
       "type": "string",
       "enum": [
         "Lowercase",
-        "Uppercase",
-        "Trim",
-        "UrlDecode",
-        "UrlEncode",
-        "RemoveNulls",
-        "HtmlEntityDecode"
+        "Uppercase"
       ],
       "x-ms-enum": {
         "name": "transform",
