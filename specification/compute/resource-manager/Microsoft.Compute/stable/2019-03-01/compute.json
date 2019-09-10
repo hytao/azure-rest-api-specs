@@ -245,6 +245,13 @@
           },
           {
             "$ref": "#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "$expand",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "The expand expression to apply to the operation."
           }
         ],
         "responses": {
@@ -884,7 +891,7 @@
             "schema": {
               "$ref": "#/definitions/DedicatedHost"
             },
-            "description": "Parameters supplied to the Create Dedicated Host ."
+            "description": "Parameters supplied to the Create Dedicated Host."
           },
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -3126,6 +3133,9 @@
           },
           "Create a scale set with ephemeral os disks.": {
             "$ref": "./examples/CreateAScaleSetWithDiffOsDisk.json"
+          },
+          "Create a scale set with terminate scheduled events enabled.": {
+            "$ref": "./examples/CreateAScaleSetWithTerminateScheduledEventEnabled.json"
           }
         }
       },
@@ -4682,6 +4692,20 @@
             "description": "The instance ID of the virtual machine."
           },
           {
+            "name": "$expand",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "The expand expression to apply on the operation.",
+            "enum": [
+              "instanceView"
+            ],
+            "x-ms-enum": {
+              "name": "InstanceViewTypes",
+              "modelAsString": false
+            }
+          },
+          {
             "$ref": "#/parameters/ApiVersionParameter"
           },
           {
@@ -5220,7 +5244,7 @@
     },
     "HyperVGenerationType": {
       "type": "string",
-      "description": "Specifies the HyperVGeneration Type for the Virtual Machine created from the image",
+      "description": "Specifies the HyperVGeneration Type",
       "enum": [
         "V1",
         "V2"
@@ -5454,7 +5478,9 @@
         "platformFaultDomainCount": {
           "type": "integer",
           "format": "int32",
-          "description": "Number of fault domains that the host group can span. Supported values 1,2,3."
+          "minimum": 1,
+          "maximum": 3,
+          "description": "Number of fault domains that the host group can span."
         },
         "hosts": {
           "type": "array",
@@ -5465,6 +5491,9 @@
           "description": "A list of references to all dedicated hosts in the dedicated host group."
         }
       },
+      "required": [
+        "platformFaultDomainCount"
+      ],
       "description": "Dedicated Host Group Properties."
     },
     "DedicatedHostGroup": {
@@ -5478,7 +5507,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Availability Zone to use for this host group � only single zone is supported. The zone can be assigned only during creation. If not provided, the group supports all zones in the region. If provided, enforce each host in the group is in the same zone."
+          "description": "Availability Zone to use for this host group. Only single zone is supported. The zone can be assigned only during creation. If not provided, the group supports all zones in the region. If provided, enforces each host in the group to be in the same zone."
         }
       },
       "allOf": [
@@ -5486,7 +5515,7 @@
           "$ref": "#/definitions/Resource"
         }
       ],
-      "description": "Specifies information about the dedicated host group that the dedicated hosts should be assigned to. <br><br> Currently, a Dedicated host can only be added to Dedicated Host Group at creation time. An existing Dedicated Host cannot be added to a dedicated host group."
+      "description": "Specifies information about the dedicated host group that the dedicated hosts should be assigned to. <br><br> Currently, a dedicated host can only be added to a dedicated host group at creation time. An existing dedicated host cannot be added to another dedicated host group."
     },
     "DedicatedHostGroupUpdate": {
       "properties": {
@@ -5499,7 +5528,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Availability Zone to use for this host group � only single zone is supported. The zone can be assigned only during creation. If not provided, the group supports all zones in the region. If provided, enforce each host in the group is in the same zone."
+          "description": "Availability Zone to use for this host group. Only single zone is supported. The zone can be assigned only during creation. If not provided, the group supports all zones in the region. If provided, enforces each host in the group to be in the same zone."
         }
       },
       "allOf": [
@@ -5541,21 +5570,6 @@
         "modelAsString": false
       }
     },
-    "DedicatedHostCapacity": {
-      "properties": {
-        "totalCores": {
-          "type": "number",
-          "format": "double",
-          "description": "The total number of cores."
-        },
-        "totalVCpus": {
-          "type": "number",
-          "format": "double",
-          "description": "The total number of CPUs."
-        }
-      },
-      "description": "Dedicated host total capacity."
-    },
     "DedicatedHostAllocatableVM": {
       "properties": {
         "vmSize": {
@@ -5572,11 +5586,6 @@
     },
     "DedicatedHostAvailableCapacity": {
       "properties": {
-        "availableVCpus": {
-          "type": "number",
-          "format": "double",
-          "description": "The total number of CPUs."
-        },
         "allocatableVMs": {
           "type": "array",
           "items": {
@@ -5592,11 +5601,7 @@
         "assetId": {
           "readOnly": true,
           "type": "string",
-          "description": "Specifies the unique of the dedicated physical machine on which the dedicated host resides."
-        },
-        "capacity": {
-          "$ref": "#/definitions/DedicatedHostCapacity",
-          "description": "The total capacity of the dedicated host."
+          "description": "Specifies the unique id of the dedicated physical machine on which the dedicated host resides."
         },
         "availableCapacity": {
           "$ref": "#/definitions/DedicatedHostAvailableCapacity",
@@ -5617,16 +5622,18 @@
         "platformFaultDomain": {
           "type": "integer",
           "format": "int32",
-          "description": "Fault domain of the host within a group. Supported values 0,1,2."
+          "minimum": 0,
+          "maximum": 2,
+          "description": "Fault domain of the dedicated host within a dedicated host group."
         },
         "autoReplaceOnFailure": {
           "type": "boolean",
-          "description": "Whether the host should be replaced automatically in case of a failure. The value is defaulted to true when not provided."
+          "description": "Specifies whether the dedicated host should be replaced automatically in case of a failure. The value is defaulted to 'true' when not provided."
         },
         "hostId": {
           "readOnly": true,
           "type": "string",
-          "description": "A unique id generated and assigned to the dedicated host by the platform."
+          "description": "A unique id generated and assigned to the dedicated host by the platform. <br><br> Does not change throughout the lifetime of the host."
         },
         "virtualMachines": {
           "type": "array",
@@ -5644,7 +5651,7 @@
           "readOnly": true,
           "type": "string",
           "format": "date-time",
-          "description": "The date when the host was first created."
+          "description": "The date when the host was first provisioned."
         },
         "provisioningState": {
           "readOnly": true,
@@ -5667,13 +5674,16 @@
         },
         "sku": {
           "$ref": "#/definitions/Sku",
-          "description": "Sku of the dedicated host for Hardware Generation and VM family, The only name is required to be set. See DedicatedHostSkuTypes for possible set of values."
+          "description": "SKU of the dedicated host for Hardware Generation and VM family. Only name is required to be set. List Microsoft.Compute SKUs for a list of possible values."
         }
       },
       "allOf": [
         {
           "$ref": "#/definitions/Resource"
         }
+      ],
+      "required": [
+        "sku"
       ],
       "description": "Specifies information about the Dedicated host."
     },
@@ -5702,13 +5712,13 @@
         },
         "nextLink": {
           "type": "string",
-          "description": "The URI to fetch the next page of Dedicated hosts. Call ListNext() with this URI to fetch the next page of Dedicated hosts."
+          "description": "The URI to fetch the next page of dedicated hosts. Call ListNext() with this URI to fetch the next page of dedicated hosts."
         }
       },
       "required": [
         "value"
       ],
-      "description": "The List Dedicated Host operation response."
+      "description": "The list dedicated host operation response."
     },
     "VirtualMachineSize": {
       "properties": {
@@ -6060,6 +6070,9 @@
         },
         "automaticOSUpgradeProperties": {
           "$ref": "#/definitions/AutomaticOSUpgradeProperties"
+        },
+        "hyperVGeneration": {
+          "$ref": "#/definitions/HyperVGenerationType"
         }
       },
       "description": "Describes the properties of a Virtual Machine Image."
@@ -6990,6 +7003,16 @@
       },
       "description": "Specifies the boot diagnostic settings state. <br><br>Minimum api-version: 2015-06-15."
     },
+    "BillingProfile": {
+      "properties": {
+        "maxPrice": {
+          "type": "number",
+          "format": "double",
+          "description": "Specifies the maximum price you are willing to pay for a low priority VM/VMSS. This price is in US Dollars. <br><br> This price will be compared with the current low priority price for the VM size. Also, the prices are compared at the time of create/update of low priority VM/VMSS and the operation will only succeed if  the maxPrice is greater than the current low priority price. <br><br> The maxPrice will also be used for evicting a low priority VM/VMSS if the current low priority price goes beyond the maxPrice after creation of VM/VMSS. <br><br> Possible values are: <br><br> - Any decimal value greater than zero. Example: $0.01538 <br><br> -1 – indicates default price to be up-to on-demand. <br><br> You can set the maxPrice to -1 to indicate that the low priority VM/VMSS should not be evicted for price reasons. Also, the default max price is -1 if it is not provided by you. <br><br>Minimum api-version: 2019-03-01."
+        }
+      },
+      "description": "Specifies the billing related details of a low priority VM or VMSS. <br><br>Minimum api-version: 2019-03-01."
+    },
     "VirtualMachineExtensionHandlerInstanceView": {
       "properties": {
         "type": {
@@ -7272,11 +7295,43 @@
         },
         "availabilitySet": {
           "$ref": "#/definitions/SubResource",
-          "description": "Specifies information about the availability set that the virtual machine should be assigned to. Virtual machines specified in the same availability set are allocated to different nodes to maximize availability. For more information about availability sets, see [Manage the availability of virtual machines](https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-manage-availability?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json). <br><br> For more information on Azure planned maintenance, see [Planned maintenance for virtual machines in Azure](https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-planned-maintenance?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json) <br><br> Currently, a VM can only be added to availability set at creation time. An existing VM cannot be added to an availability set."
+          "description": "Specifies information about the availability set that the virtual machine should be assigned to. Virtual machines specified in the same availability set are allocated to different nodes to maximize availability. For more information about availability sets, see [Manage the availability of virtual machines](https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-manage-availability?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json). <br><br> For more information on Azure planned maintenance, see [Planned maintenance for virtual machines in Azure](https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-planned-maintenance?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json) <br><br> Currently, a VM can only be added to availability set at creation time. An existing VM cannot be added to an availability set. <br><br>This property cannot exist along with a non-null properties.virtualMachineScaleSet reference."
+        },
+        "virtualMachineScaleSet": {
+          "$ref": "#/definitions/SubResource",
+          "description": "Specifies information about the virtual machine scale set that the virtual machine should be assigned to. Virtual machines specified in the same virtual machine scale set are allocated to different nodes to maximize availability. Currently, a VM can only be added to virtual machine scale set at creation time. An existing VM cannot be added to a virtual machine scale set. <br><br>This property cannot exist along with a non-null properties.availabilitySet reference. <br><br>Minimum api‐version: 2019‐03‐01"
         },
         "proximityPlacementGroup": {
           "$ref": "#/definitions/SubResource",
           "description": "Specifies information about the proximity placement group that the virtual machine should be assigned to. <br><br>Minimum api-version: 2018-04-01."
+        },
+        "priority": {
+          "type": "string",
+          "description": "Specifies the priority for the virtual machine. <br><br>Minimum api-version: 2019-03-01",
+          "enum": [
+            "Regular",
+            "Low"
+          ],
+          "x-ms-enum": {
+            "name": "VirtualMachinePriorityTypes",
+            "modelAsString": true
+          }
+        },
+        "evictionPolicy": {
+          "type": "string",
+          "description": "Specifies the eviction policy for the low priority virtual machine. Only supported value is 'Deallocate'. <br><br>Minimum api-version: 2019-03-01",
+          "enum": [
+            "Deallocate",
+            "Delete"
+          ],
+          "x-ms-enum": {
+            "name": "VirtualMachineEvictionPolicyTypes",
+            "modelAsString": true
+          }
+        },
+        "billingProfile": {
+          "$ref": "#/definitions/BillingProfile",
+          "description": "Specifies the billing related details of a low priority virtual machine. <br><br>Minimum api-version: 2019-03-01."
         },
         "host": {
           "$ref": "#/definitions/SubResource",
@@ -7475,6 +7530,27 @@
         }
       },
       "description": "The configuration parameters used while performing a rolling upgrade."
+    },
+    "ScaleInPolicy": {
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Default",
+              "OldestVM",
+              "NewestVM"
+            ],
+            "x-ms-enum": {
+              "name": "VirtualMachineScaleSetScaleInRules",
+              "modelAsString": true
+            }
+          },
+          "description": "The rules to be followed when scaling-in a virtual machine scale set. <br><br> Possible values are: <br><br> **Default** When a virtual machine scale set is scaled in, the scale set will first be balanced across zones if it is a zonal scale set. Then, it will be balanced across Fault Domains as far as possible. Within each Fault Domain, the virtual machines chosen for removal will be the newest ones that are not protected from scale-in. <br><br> **OldestVM** When a virtual machine scale set is being scaled-in, the oldest virtual machines that are not protected from scale-in will be chosen for removal. For zonal virtual machine scale sets, the scale set will first be balanced across zones. Within each zone, the oldest virtual machines that are not protected will be chosen for removal. <br><br> **NewestVM** When a virtual machine scale set is being scaled-in, the newest virtual machines that are not protected from scale-in will be chosen for removal. For zonal virtual machine scale sets, the scale set will first be balanced across zones. Within each zone, the newest virtual machines that are not protected will be chosen for removal. <br><br>"
+        }
+      },
+      "description": "Describes a scale-in policy for a virtual machine scale set."
     },
     "ImageOSDisk": {
       "properties": {
@@ -8512,6 +8588,14 @@
             "name": "VirtualMachineEvictionPolicyTypes",
             "modelAsString": true
           }
+        },
+        "billingProfile": {
+          "$ref": "#/definitions/BillingProfile",
+          "description": "Specifies the billing related details of a low priority VMSS. <br><br>Minimum api-version: 2019-03-01."
+        },
+        "scheduledEventsProfile": {
+          "$ref": "#/definitions/ScheduledEventsProfile",
+          "description": "Specifies Scheduled Event related configurations."
         }
       },
       "description": "Describes a virtual machine scale set virtual machine profile."
@@ -8541,6 +8625,14 @@
         "licenseType": {
           "type": "string",
           "description": "The license type, which is for bring your own license scenario."
+        },
+        "billingProfile": {
+          "$ref": "#/definitions/BillingProfile",
+          "description": "Specifies the billing related details of a low priority VMSS. <br><br>Minimum api-version: 2019-03-01."
+        },
+        "scheduledEventsProfile": {
+          "$ref": "#/definitions/ScheduledEventsProfile",
+          "description": "Specifies Scheduled Event related configurations."
         }
       },
       "description": "Describes a virtual machine scale set virtual machine profile."
@@ -8593,6 +8685,10 @@
         "additionalCapabilities": {
           "$ref": "#/definitions/AdditionalCapabilities",
           "description": "Specifies additional capabilities enabled or disabled on the Virtual Machines in the Virtual Machine Scale Set. For instance: whether the Virtual Machines have the capability to support attaching managed data disks with UltraSSD_LRS storage account type."
+        },
+        "scaleInPolicy": {
+          "$ref": "#/definitions/ScaleInPolicy",
+          "description": "Specifies the scale-in policy that decides which virtual machines are chosen for removal when a Virtual Machine Scale Set is scaled-in."
         }
       },
       "description": "Describes the properties of a Virtual Machine Scale Set."
@@ -8618,6 +8714,10 @@
         "additionalCapabilities": {
           "$ref": "#/definitions/AdditionalCapabilities",
           "description": "Specifies additional capabilities enabled or disabled on the Virtual Machines in the Virtual Machine Scale Set. For instance: whether the Virtual Machines have the capability to support attaching managed data disks with UltraSSD_LRS storage account type."
+        },
+        "scaleInPolicy": {
+          "$ref": "#/definitions/ScaleInPolicy",
+          "description": "Specifies the scale-in policy that decides which virtual machines are chosen for removal when a Virtual Machine Scale Set is scaled-in."
         }
       },
       "description": "Describes the properties of a Virtual Machine Scale Set."
@@ -9254,6 +9354,28 @@
         }
       },
       "description": "The protection policy of a virtual machine scale set VM."
+    },
+    "ScheduledEventsProfile": {
+      "type": "object",
+      "properties": {
+        "terminateNotificationProfile": {
+          "$ref": "#/definitions/TerminateNotificationProfile",
+          "description": "Specifies Terminate Scheduled Event related configurations."
+        }
+      }
+    },
+    "TerminateNotificationProfile": {
+      "type": "object",
+      "properties": {
+        "notBeforeTimeout": {
+          "type": "string",
+          "description": "Configurable length of time a Virtual Machine being deleted will have to potentially approve the Terminate Scheduled Event before the event is auto approved (timed out). The configuration must be specified in ISO 8601 format, the default value is 5 minutes (PT5M)"
+        },
+        "enable": {
+          "type": "boolean",
+          "description": "Specifies whether the Terminate Scheduled event is enabled or disabled."
+        }
+      }
     },
     "VirtualMachineHealthStatus": {
       "properties": {
